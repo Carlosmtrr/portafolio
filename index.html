@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carlos Morán | Portafolio</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; background:#f5f5f5; color: #333; }
+    header { background:#000; color:#fff; padding:40px 20px; text-align:center; }
+    h1 { margin: 0 0 10px 0; }
+    .container { width:90%; max-width:900px; margin:auto; padding:20px; }
+    
+    /* Corrección y mejora de la tarjeta */
+    .card { 
+        background:#fff; 
+        padding:25px; 
+        margin-bottom:20px; 
+        border-radius:12px; 
+        /* Sombra corregida y suavizada */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Efecto al pasar el mouse (Hover) */
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .tag { 
+        padding:6px 12px; 
+        background:#222; 
+        color:#fff; 
+        border-radius:8px; 
+        display:inline-block; 
+        margin:5px 5px 5px 0; 
+        font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Carlos Morán</h1>
+  <p>Full Stack Jr | Laravel · PHP · MySQL | Redes · IA básica</p>
+</header>
+
+<div class="container">
+
+  <section class="card">
+    <h2>Sobre mí</h2>
+    <p>Ingeniero en TIC con experiencia en desarrollo web, soporte técnico, redes, seguridad básica y documentación técnica. Manejo PHP, Laravel, Yii2, MySQL y Python básico.</p>
+  </section>
+
+  <section class="card">
+    <h2>Certificaciones</h2>
+    <p><strong>Cursor con Python: desarrollo inteligente con IA</strong> — Santander Open Academy (2025)</p>
+    <p style="color: #666; font-size: 0.9em;">ID: OA-2025-1205002051001</p>
+  </section>
+
+  <section class="card">
+    <h2>Proyectos</h2>
+    <article>
+        <h3>Escuelita-App (Laravel)</h3>
+        <p>Sistema educativo completo con roles, autenticación y CRUD avanzado.</p>
+    </article>
+
+    <article>
+        <h3>SIE (Yii2)</h3>
+        <p>Sistema administrativo escolar con MVC profesional.</p>
+    </article>
+
+    <article>
+        <h3>KAHVE + ERP Dolibarr</h3>
+        <p>Integración real con flujo de inventarios, ventas y documentación UX.</p>
+    </article>
+
+    <article>
+        <h3>Laboratorio de Ciberseguridad</h3>
+        <p>Análisis de tráfico en capa 2 y reporte técnico.</p>
+    </article>
+  </section>
+
+  <section class="card">
+    <h2>Habilidades</h2>
+    <span class="tag">PHP</span>
+    <span class="tag">Laravel</span>
+    <span class="tag">Yii2</span>
+    <span class="tag">MySQL</span>
+    <span class="tag">Python básico</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">Redes</span>
+    <span class="tag">Wireshark</span>
+    <span class="tag">Git</span>
+  </section>
+
+</div>
+
+</body>
+</html>
