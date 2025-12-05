@@ -5,28 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carlos Morán | Portafolio</title>
   <style>
+    /* Estilos Generales */
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; background:#f5f5f5; color: #333; }
     header { background:#000; color:#fff; padding:40px 20px; text-align:center; }
     h1 { margin: 0 0 10px 0; }
+    
     .container { width:90%; max-width:900px; margin:auto; padding:20px; }
     
-    /* Corrección y mejora de la tarjeta */
+    /* Estilos de las Tarjetas */
     .card { 
         background:#fff; 
         padding:25px; 
         margin-bottom:20px; 
         border-radius:12px; 
-        /* Sombra corregida y suavizada */
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
-    /* Efecto al pasar el mouse (Hover) */
     .card:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
     }
 
+    /* Etiquetas */
     .tag { 
         padding:6px 12px; 
         background:#222; 
@@ -35,6 +35,47 @@
         display:inline-block; 
         margin:5px 5px 5px 0; 
         font-size: 0.9em;
+    }
+
+    /* Estilos Específicos para la App del Clima */
+    .weather-controls {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .weather-input {
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        flex-grow: 1;
+        font-size: 1rem;
+    }
+
+    .weather-btn {
+        background: #000;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.3s;
+    }
+    
+    .weather-btn:hover {
+        background: #444;
+    }
+
+    #weather-result {
+        margin-top: 15px;
+        padding: 15px;
+        background: #f0f8ff;
+        border-radius: 8px;
+        border-left: 5px solid #000;
+        font-weight: 500;
+        display: none; /* Oculto hasta que se busque algo */
     }
   </style>
 </head>
@@ -52,10 +93,16 @@
     <p>Ingeniero en TIC con experiencia en desarrollo web, soporte técnico, redes, seguridad básica y documentación técnica. Manejo PHP, Laravel, Yii2, MySQL y Python básico.</p>
   </section>
 
-  <section class="card">
-    <h2>Certificaciones</h2>
-    <p><strong>Cursor con Python: desarrollo inteligente con IA</strong> — Santander Open Academy (2025)</p>
-    <p style="color: #666; font-size: 0.9em;">ID: OA-2025-1205002051001</p>
+  <section class="card" style="border: 2px solid #000;">
+    <h2>☁️ Live Demo: Consumo de API</h2>
+    <p>Pequeña demostración de consumo asíncrono (Async/Await) usando la API de <em>wttr.in</em> sin backend intermedio.</p>
+    
+    <div class="weather-controls">
+        <input type="text" id="city" class="weather-input" placeholder="Escribe una ciudad (ej. Lima, Madrid)">
+        <button onclick="getWeather()" class="weather-btn">Consultar Clima</button>
+    </div>
+    
+    <div id="weather-result"></div>
   </section>
 
   <section class="card">
@@ -64,37 +111,71 @@
         <h3>Escuelita-App (Laravel)</h3>
         <p>Sistema educativo completo con roles, autenticación y CRUD avanzado.</p>
     </article>
-
     <article>
         <h3>SIE (Yii2)</h3>
         <p>Sistema administrativo escolar con MVC profesional.</p>
     </article>
+  </section>
 
-    <article>
-        <h3>KAHVE + ERP Dolibarr</h3>
-        <p>Integración real con flujo de inventarios, ventas y documentación UX.</p>
-    </article>
-
-    <article>
-        <h3>Laboratorio de Ciberseguridad</h3>
-        <p>Análisis de tráfico en capa 2 y reporte técnico.</p>
-    </article>
+  <section class="card">
+    <h2>Certificaciones</h2>
+    <p><strong>Cursor con Python: desarrollo inteligente con IA</strong> — Santander Open Academy (2025)</p>
+    <p style="color: #666; font-size: 0.9em;">ID: OA-2025-1205002051001</p>
   </section>
 
   <section class="card">
     <h2>Habilidades</h2>
     <span class="tag">PHP</span>
     <span class="tag">Laravel</span>
-    <span class="tag">Yii2</span>
+    <span class="tag">JavaScript (ES6+)</span>
+    <span class="tag">API REST</span>
     <span class="tag">MySQL</span>
-    <span class="tag">Python básico</span>
-    <span class="tag">JavaScript</span>
-    <span class="tag">Redes</span>
-    <span class="tag">Wireshark</span>
     <span class="tag">Git</span>
   </section>
 
 </div>
+
+<script>
+    async function getWeather() {
+        const cityInput = document.getElementById('city');
+        const resultBox = document.getElementById('weather-result');
+        const city = cityInput.value.trim();
+
+        if (!city) {
+            alert("Por favor escribe una ciudad");
+            return;
+        }
+
+        // Mostrar estado de carga
+        resultBox.style.display = 'block';
+        resultBox.innerText = "Cargando datos...";
+        resultBox.style.background = '#f0f8ff'; // Azulito claro
+
+        try {
+            const resp = await fetch(`https://wttr.in/${city}?format=%C+%t+(Humedad:+%h)`);
+            
+            if (!resp.ok) throw new Error("Error en la red");
+            
+            const data = await resp.text();
+            
+            // Mostrar resultado exitoso
+            resultBox.innerText = `📍 Clima en ${city}: ${data}`;
+            resultBox.style.background = '#e8f5e9'; // Verde claro éxito
+            
+        } catch (error) {
+            console.error(error);
+            resultBox.innerText = "❌ No pudimos encontrar esa ciudad. Intenta con otra.";
+            resultBox.style.background = '#ffebee'; // Rojo claro error
+        }
+    }
+    
+    // Permitir buscar con la tecla Enter
+    document.getElementById('city').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            getWeather();
+        }
+    });
+</script>
 
 </body>
 </html>
